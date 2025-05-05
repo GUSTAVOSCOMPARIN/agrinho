@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>A Importância do Produtor Rural</title>
+  <style>
+    /* Reset and base */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #2c6a2f; /* dark green for good contrast */
+      color: #f5f5f5; /* off-white text */
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px 15px;
+      line-height: 1.6;
+    }
+    header {
+      max-width: 700px;
+      text-align: center;
+      margin-bottom: 30px;
+      outline: none;
+    }
+    header h1 {
+      font-size: 2.8rem;
+      margin-bottom: 12px;
+      font-weight: 700;
+      color: #d0f0c0;
+      text-shadow: 1px 1px 3px #134d15;
+    }
+    header p {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #a0d690;
+      text-shadow: 1px 1px 2px #134d15;
+    }
+    main {
+      background: #3f833f; /* slightly lighter green */
+      border-radius: 15px;
+      max-width: 700px;
+      padding: 28px 32px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    }
+    main h2 {
+      font-size: 2rem;
+      margin-bottom: 22px;
+      text-align: center;
+      color: #def1d9;
+      text-shadow: 1px 1px 2px #1a3a12;
+      outline: none;
+    }
+    main h3 {
+      font-size: 1.6rem;
+      color: #bde4ab;
+      margin-top: 28px;
+      margin-bottom: 12px;
+      text-shadow: 1px 1px 2px #1a3a12;
+      cursor: pointer;
+    }
+    main h3[aria-expanded="true"] {
+      color: #e4f7c2;
+    }
+    main p {
+      font-size: 1.15rem;
+      margin-bottom: 20px;
+      color: #e6f5dc;
+      text-align: justify;
+    }
+    main ul {
+      margin-left: 20px;
+      margin-bottom: 20px;
+      color: #d9edc8;
+      list-style: none;
+      padding-left: 0;
+    }
+    main ul li {
+      margin-bottom: 10px;
+      background: rgba(255 255 255 / 0.1);
+      border-radius: 8px;
+      padding: 10px 15px;
+      position: relative;
+    }
+    main ul li button.toggle-btn {
+      position: absolute;
+      right: 12px;
+      top: 12px;
+      background: #a0d690;
+      border: none;
+      border-radius: 12px;
+      width: 24px;
+      height: 24px;
+      font-weight: bold;
+      color: #234d15;
+      cursor: pointer;
+      user-select: none;
+      text-align: center;
+      line-height: 22px;
+      transition: background-color 0.3s ease;
+    }
+    main ul li button.toggle-btn:hover,
+    main ul li button.toggle-btn:focus {
+      background: #cee7a8;
+      outline: none;
+    }
+    main ul li div.more-info {
+      margin-top: 10px;
+      padding: 10px 15px;
+      background: rgba(0 0 0 / 0.15);
+      border-radius: 8px;
+      display: none;
+      color: #d9edc8;
+      font-size: 1rem;
+      line-height: 1.4;
+    }
+    main ul li div.more-info.visible {
+      display: block;
+    }
+    /* Quiz styles */
+    #quiz {
+      margin-top: 30px;
+      background: rgba(255, 255, 255, 0.12);
+      padding: 20px 25px;
+      border-radius: 15px;
+      color: #e6f5dc;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.35);
+    }
+    #quiz h3 {
+      margin-bottom: 18px;
+      cursor: default;
+      user-select: none;
+    }
+    #quiz form {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    #quiz fieldset {
+      border: none;
+      padding: 0;
+    }
+    #quiz legend {
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    #quiz label {
+      cursor: pointer;
+      user-select: none;
+      padding: 8px 12px;
+      border-radius: 10px;
+      background: rgba(160, 214, 144, 0.4);
+      transition: background-color 0.3s ease;
+      display: block;
+    }
+    #quiz input[type="radio"]:focus + label {
+      outline: 3px solid #b2eb85;
+      outline-offset: 3px;
+      background: rgba(160, 214, 144, 0.7);
+    }
+    #quiz input[type="radio"]:checked + label {
+      background: #a0d690;
+      color: #234d15;
+      font-weight: 700;
+    }
+    #quiz button {
+      margin-top: 14px;
+      background: #a0d690;
+      color: #234d15;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 1rem;
+      transition: background-color 0.3s ease;
+      align-self: flex-start;
+    }
+    #quiz button:hover,
+    #quiz button:focus {
+      background: #cee7a8;
+      outline: none;
+    }
+    #quiz .result {
+      margin-top: 18px;
+      font-size: 1.15rem;
+      font-weight: 600;
+      min-height: 1.4em;
+      user-select: none;
+    }
+    footer {
+      margin-top: auto;
+      padding-top: 18px;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #a7c9a1;
+      text-shadow: 1px 1px 1px #134d15;
+      outline: none;
+    }
+    /* Focus outlines for accessibility */
+    a:focus,
+    button:focus,
+    [tabindex]:focus {
+      outline: 3px solid #b2eb85;
+      outline-offset: 3px;
+    }
+    /* Responsive adjustments for mobile */
+    @media (max-width: 600px) {
+      body {
+        padding: 15px 12px;
+      }
+      header h1 {
+        font-size: 2.1rem;
+      }
+      header p {
+        font-size: 1.1rem;
+      }
+      main {
+        padding: 22px 20px;
+        max-width: 100%;
+      }
+      main h2 {
+        font-size: 1.7rem;
+      }
+      main h3 {
+        font-size: 1.3rem;
+      }
+      main p {
+        font-size: 1rem;
+      }
+      main ul li button.toggle-btn {
+        width: 20px;
+        height: 20px;
+        line-height: 18px;
+        right: 8px;
+        top: 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header role="banner">
+    <h1 tabindex="0">A Importância do Produtor Rural</h1>
+    <p tabindex="0">Reconhecendo o papel fundamental na sustentação da vida e da economia</p>
+  </header>
+  <main role="main">
+    <h2 tabindex="0">O Pilar da Alimentação e Desenvolvimento</h2>
+    <p tabindex="0">
+      O produtor rural é a base da cadeia alimentar, responsável por cultivar a terra, criar animais e garantir alimentos frescos e nutritivos para a população. Seu trabalho árduo e dedicado contribui para a segurança alimentar, sustentando famílias, comunidades e toda a sociedade.
+    </p>
+    <p tabindex="0">
+      Além da produção de alimentos, o produtor rural impulsiona a economia local e nacional, gerando empregos, promovendo o desenvolvimento sustentável e preservando as tradições culturais que envolvem o campo e a agricultura.
+    </p>
+
+    <h3 tabindex="0">Ligação entre Campo e Cidade</h3>
+    <p tabindex="0">
+      A relação entre o campo e a cidade é profunda e indispensável. Os habitantes das áreas urbanas dependem diretamente dos produtores rurais para o abastecimento de alimentos frescos, enquanto o campo necessita da cidade para comércio, tecnologia, serviços e infraestrutura. Essa interconexão fortalece a economia e promove o equilíbrio social.
+    </p>
+    <p tabindex="0">
+      Essa interação também estimula a valorização de produtos locais, incentiva a agricultura familiar e contribui para a conservação ambiental ao integrar práticas sustentáveis que beneficiam tanto o campo quanto o meio urbano.
+    </p>
+
+    <h3 tabindex="0">Exemplos de Produtores Rurais Brasileiros</h3>
+    <p tabindex="0">
+      O Brasil conta com inúmeros produtores rurais que se destacam por sua inovação, sustentabilidade e contribuição social:
+    </p>
+    <ul>
+      <li>
+        <strong>José Luiz Tejon:</strong>
+        <button class="toggle-btn" aria-expanded="false" aria-controls="info-tejon" aria-label="Mostrar mais informações sobre José Luiz Tejon">+</button>
+        <div id="info-tejon" class="more-info">
+          Engenheiro agrônomo e líder em práticas de agricultura sustentável, Tejon é referência na pesquisa aplicada a sistemas agrícolas e ambientais no país, participando de iniciativas que promovem o desenvolvimento rural responsável.
+        </div>
+      </li>
+      <li>
+        <strong>Chico Mendes (1944-1988):</strong>
+        <button class="toggle-btn" aria-expanded="false" aria-controls="info-mendes" aria-label="Mostrar mais informações sobre Chico Mendes">+</button>
+        <div id="info-mendes" class="more-info">
+          Conhecido ativista e seringueiro, lutou pelos direitos dos produtores extrativistas e pela preservação da floresta amazônica. Seu legado inspira movimentos ambientais e sociais no Brasil e no mundo.
+        </div>
+      </li>
+      <li>
+        <strong>Eduardo Jorge Paiva:</strong>
+        <button class="toggle-btn" aria-expanded="false" aria-controls="info-paiva" aria-label="Mostrar mais informações sobre Eduardo Jorge Paiva">+</button>
+        <div id="info-paiva" class="more-info">
+          Produtor rural inovador no setor de agricultura orgânica, reconhecido por expandir a produção sem o uso de agrotóxicos, promovendo a saúde do solo e dos consumidores.
+        </div>
+      </li>
+      <li>
+        <strong>Maria Fumaça:</strong>
+        <button class="toggle-btn" aria-expanded="false" aria-controls="info-fumaca" aria-label="Mostrar mais informações sobre Maria Fumaça">+</button>
+        <div id="info-fumaca" class="more-info">
+          Exemplo de liderança feminina no campo, destacando-se na produção de alimentos tradicionais e no desenvolvimento comunitário na zona rural, fortalecendo redes de colaboração e cultura agrícola.
+        </div>
+      </li>
+    </ul>
+
+    <section id="quiz" aria-labelledby="quiz-title">
+      <h3 id="quiz-title" tabindex="0">Quiz Interativo: Teste seus conhecimentos</h3>
+      <form id="quiz-form">
+        <fieldset>
+          <legend>Qual é o principal papel do produtor rural?</legend>
+          <label for="q1a"><input type="radio" id="q1a" name="q1" value="a" /> Produzir bens industriais</label>
+          <label for="q1b"><input type="radio" id="q1b" name="q1" value="b" /> Cultivar a terra e produzir alimentos</label>
+          <label for="q1c"><input type="radio" id="q1c" name="q1" value="c" /> Administrar empresas urbanas</label>
+        </fieldset>
+        <fieldset>
+          <legend>Qual destes é um benefício da ligação entre campo e cidade?</legend>
+          <label for="q2a"><input type="radio" id="q2a" name="q2" value="a" /> Apenas o campo depende da cidade</label>
+          <label for="q2b"><input type="radio" id="q2b" name="q2" value="b" /> Fortalecimento econômico e social</label>
+          <label for="q2c"><input type="radio" id="q2c" name="q2" value="c" /> Não há ligação relevante</label>
+        </fieldset>
+        <fieldset>
+          <legend>Quem foi Chico Mendes?</legend>
+          <label for="q3a"><input type="radio" id="q3a" name="q3" value="a" /> Ativista e seringueiro em defesa da floresta amazônica</label>
+          <label for="q3b"><input type="radio" id="q3b" name="q3" value="b" /> Empresário agrícola</label>
+          <label for="q3c"><input type="radio" id="q3c" name="q3" value="c" /> Agricultor de sementes transgênicas</label>
+        </fieldset>
+        <button type="submit" aria-label="Enviar respostas do quiz">Enviar Respostas</button>
+      </form>
+      <div class="result" aria-live="polite" role="region" aria-atomic="true" tabindex="0"></div>
+    </section>
+
+  </main>
+  <footer role="contentinfo" tabindex="0">
+    &copy; 2025 Gustavo Munhoz Scomparin
+  </footer>
+  <script>
+    // Toggle more-info sections with class toggle (not hidden attribute)
+    document.querySelectorAll('button.toggle-btn').forEach(button => {
+      const showLabel = button.getAttribute('aria-label').replace('Ocultar', 'Mostrar');
+      const hideLabel = button.getAttribute('aria-label').replace('Mostrar', 'Ocultar');
+
+      // Initially hide all info
+      const infoId = button.getAttribute('aria-controls');
+      const infoDiv = document.getElementById(infoId);
+      infoDiv.classList.remove('visible');
+
+      button.addEventListener('click', () => {
+        const expanded = button.getAttribute('aria-expanded') === 'true';
+
+        if (expanded) {
+          button.setAttribute('aria-expanded', 'false');
+          infoDiv.classList.remove('visible');
+          button.textContent = '+';
+          button.setAttribute('aria-label', showLabel);
+        } else {
+          button.setAttribute('aria-expanded', 'true');
+          infoDiv.classList.add('visible');
+          button.textContent = '−';
+          button.setAttribute('aria-label', hideLabel);
+        }
+      });
+    });
+
+    // Quiz logic
+    const quizForm = document.getElementById('quiz-form');
+    const resultDiv = document.querySelector('#quiz .result');
+
+    const correctAnswers = {
+      q1: 'b',
+      q2: 'b',
+      q3: 'a'
+    };
+
+    quizForm.addEventListener('submit', event => {
+      event.preventDefault();
+      let score = 0;
+      const formData = new FormData(quizForm);
+      for (const [question, answer] of Object.entries(correctAnswers)) {
+        if (formData.get(question) === answer) {
+          score++;
+        }
+      }
+      let message = '';
+      if (score === Object.keys(correctAnswers).length) {
+        message = 'Parabéns! Você acertou todas as respostas.';
+      } else {
+        message = `Você acertou ${score} de ${Object.keys(correctAnswers).length}.`;
+      }
+      resultDiv.textContent = message;
+      // Move focus to result for screen reader user
+      resultDiv.focus();
+    });
+  </script>
+</body>
+</html>
+
